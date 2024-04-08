@@ -16,7 +16,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -49,6 +51,34 @@ fun Post(post: PostModel, content: @Composable () -> Unit = {}) {
 @Composable
 fun Header(post: PostModel) {
   //TODO add your code here
+  Row(modifier = Modifier.padding(start = 16.dp)) {
+    Image(ImageBitmap.imageResource(
+      id = R.drawable.subreddit_placeholder),
+      contentDescription = stringResource(id = R.string.subreddits),
+      Modifier
+        .size(40.dp)
+        .clip(CircleShape)
+    )
+    Spacer(modifier = Modifier.width(8.dp))
+    Column(modifier = Modifier.weight(1f)) {
+      Text(
+        text = stringResource(
+          R.string.subreddit_header, 
+          post.subreddit),
+        fontWeight = FontWeight.Medium,
+        color = MaterialTheme.colors.primaryVariant
+      )
+      Text(
+        text = stringResource(
+          R.string.post_header, 
+          post.username, 
+          post.postedTime), 
+        color = Color.Gray
+      )
+    }
+    MoreActionsMenu()
+  }
+  Title(text = post.title)
 }
 
 @Composable
