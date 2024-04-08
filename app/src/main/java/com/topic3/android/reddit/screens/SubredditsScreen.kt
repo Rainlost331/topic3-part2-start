@@ -14,6 +14,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
@@ -183,8 +184,34 @@ fun SubredditDescription(modifier: Modifier, @StringRes descriptionStringRes: In
 }
 
 @Composable
-fun Community(text: String, modifier: Modifier = Modifier) {
+fun Community(
+    text: String,
+    modifier: Modifier = Modifier,
+    onCommunityClciked: () -> Unit = {}
+) {
     //TODO add your code here
+    Row (modifier = modifier
+        .padding(start = 16.dp, top = 16.dp)
+        .fillMaxWidth()
+        .clickable { onCommunityClciked.invoke() }
+    ){
+        Image(
+            bitmap = ImageBitmap.imageResource(id = R.drawable.subreddit_placeholder),
+            contentDescription = stringResource(id = R.string.community_icon),
+            modifier = modifier
+                .size(24.dp)
+                .clip(CircleShape)
+        )
+        Text(
+            fontSize = 10.sp,
+            color = MaterialTheme.colors.primaryVariant,
+            text = text,
+            fontWeight = FontWeight.Bold,
+            modifier = modifier
+                .padding(start = 16.dp)
+                .align(Alignment.CenterVertically)
+        )
+    }
 }
 
 @Composable
